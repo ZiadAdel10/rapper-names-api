@@ -32,7 +32,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/api/:rapperName", (req, res) => {
-  const rapperName = req.params.name.toLowerCase();
+  const rapperName = req.params.rapperName.toLowerCase();
   if (rappers[rapperName]) {
     res.json(rappers[rapperName]);
   } else {
