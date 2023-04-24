@@ -1,6 +1,11 @@
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || 8000;
+const PORT = 8000;
+const cors = require("cors");
+const path = require("path");
+const router = express.Router();
+
+app.use(cors());
 
 const rappers = {
   "21 savage": {
@@ -22,11 +27,11 @@ const rappers = {
   },
 };
 
-app.get("/", (req, res) => {
-  res.sendFile(__dirname + "/index.html");
+router.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "/index.html"));
 });
 
-app.get("/api/:name", (req, res) => {
+router.get("/api/:rapperName", (req, res) => {
   const rapperName = req.params.name.toLowerCase();
   if (rappers[rapperName]) {
     res.json(rappers[rapperName]);
@@ -35,6 +40,4 @@ app.get("/api/:name", (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`The server is listening on port ${PORT}`);
-});
+module.exports = router;
